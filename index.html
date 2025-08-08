@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Resume | Matthew Conti, PMP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: "Calm Harmony" - A warm neutral background (#F5F5F4) with a slightly darker neutral for cards/sections (#E7E5E4), a deep slate for primary text (#292524), a muted teal for interactive elements (#14B8A6), and a subtle gold for accents (#F59E0B). -->
+    <!-- Application Structure Plan: The SPA is designed with a thematic, non-linear structure to prioritize user exploration and understanding. It begins with a high-level "Overview" dashboard featuring dynamic stats for immediate impact. This is followed by an interactive "Career Journey" timeline that visualizes progression. A filterable "Project Highlights" section allows users to explore specific achievements by skill category. Finally, an interactive "Skills & Expertise" radar chart provides a dynamic view of core competencies. This structure was chosen to guide the user from a broad understanding of capabilities to deep-dives into specific, relevant experiences, making the content more digestible and engaging than a standard chronological resume. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: 10+ years experience, PMP, multi-industry background. Goal: Inform & Impress. Viz: Dynamic counters. Interaction: Animated numbers on scroll. Justification: Provides a quick, impactful summary of top-line qualifications. Library: Vanilla JS.
+        - Report Info: Chronological work history. Goal: Show Progression. Viz: Vertical Timeline. Interaction: Hover effects on timeline points, revealing details. Justification: More engaging than a list; visually represents career growth. Library/Method: HTML/CSS with JS for interaction.
+        - Report Info: Specific project achievements (e.g., retail store launches, restaurant development). Goal: Showcase Specific Expertise. Viz: Filterable Card Grid. Interaction: Buttons to filter projects by category (e.g., "Operations," "Digital," "Consulting"). Justification: Allows users to self-select information most relevant to their needs. Library/Method: Vanilla JS.
+        - Report Info: List of skills. Goal: Visualize Proficiency. Viz: Radar Chart. Interaction: Tooltips on hover. Justification: A radar chart effectively displays proficiency levels across multiple skill areas in a single, easy-to-understand graphic. Library: Chart.js.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F5F5F4; /* stone-100 */
+            color: #292524; /* stone-800 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -31px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #14B8A6; /* teal-500 */
+            border: 4px solid #F5F5F4; /* stone-100 */
+        }
+        .timeline-item:hover::before {
+            background-color: #F59E0B; /* amber-500 */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8 max-w-7xl">
+        
+        <!-- Header Section -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-stone-800">Matthew Conti, PMP</h1>
+            <p class="mt-2 text-lg text-stone-600">Interactive Career Portfolio</p>
+        </header>
+
+        <!-- Overview & Core Competencies Section -->
+        <section id="overview" class="mb-16 bg-stone-200 p-8 rounded-lg shadow-md">
+            <h2 class="text-3xl font-bold text-center mb-8 text-stone-800">Overview & Core Competencies</h2>
+            <div class="text-center mb-8 max-w-3xl mx-auto">
+                <p class="text-lg text-stone-700">A PMP-certified Project Manager with over a decade of experience delivering results across diverse industries including hospitality, tech, and marketing. Proven ability to drive digital initiatives, manage stakeholder expectations, and lead complex projects to successful completion.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <p class="text-5xl font-bold text-teal-500" data-target="10">0</p>
+                    <p class="text-lg text-stone-600 mt-2">Years of Experience</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <p class="text-5xl font-bold text-teal-500" data-target="50">0</p>
+                    <p class="text-lg text-stone-600 mt-2">Projects Managed</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow">
+                    <p class="text-5xl font-bold text-teal-500" data-target="8">0</p>
+                    <p class="text-lg text-stone-600 mt-2">Industries Served</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Career Journey Section -->
+        <section id="journey" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-12 text-stone-800">Career Journey</h2>
+            <div class="relative border-l-2 border-stone-300 ml-4 md:ml-0">
+                <!-- Journey items will be injected here by JS -->
+            </div>
+        </section>
+
+        <!-- Project Highlights Section -->
+        <section id="projects" class="mb-16">
+            <h2 class="text-3xl font-bold text-center mb-8 text-stone-800">Project Highlights</h2>
+            <div class="text-center mb-8 max-w-3xl mx-auto">
+                <p class="text-lg text-stone-700">A selection of key projects demonstrating leadership, strategic planning, and execution across various domains. Use the filters to explore projects by area of expertise.</p>
+            </div>
+            <div class="flex justify-center flex-wrap gap-4 mb-8">
+                <button class="filter-btn bg-teal-500 text-white py-2 px-4 rounded-lg shadow hover:bg-teal-600 transition-colors" data-filter="all">All</button>
+                <button class="filter-btn bg-stone-300 text-stone-800 py-2 px-4 rounded-lg shadow hover:bg-stone-400 transition-colors" data-filter="operations">Operations & Development</button>
+                <button class="filter-btn bg-stone-300 text-stone-800 py-2 px-4 rounded-lg shadow hover:bg-stone-400 transition-colors" data-filter="digital">Digital & Marketing</button>
+                <button class="filter-btn bg-stone-300 text-stone-800 py-2 px-4 rounded-lg shadow hover:bg-stone-400 transition-colors" data-filter="consulting">Consulting & Strategy</button>
+            </div>
+            <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project cards will be injected here by JS -->
+            </div>
+        </section>
+
+        <!-- Skills & Expertise Section -->
+        <section id="skills">
+            <h2 class="text-3xl font-bold text-center mb-8 text-stone-800">Skills & Expertise</h2>
+             <div class="text-center mb-8 max-w-3xl mx-auto">
+                <p class="text-lg text-stone-700">A blend of strategic, technical, and leadership skills honed over a decade of hands-on project management. The chart below visualizes core competencies and their proficiency levels.</p>
+            </div>
+            <div class="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+                <div class="chart-container">
+                    <canvas id="skillsChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Data for the application
+            const journeyData = [
+                { year: '2020 - Present', title: 'Senior Project Manager', company: 'Triumph Higher Education', description: 'Spearheading continuous process improvement and optimizing project delivery using Agile and Waterfall methodologies.' },
+                { year: '2022 - 2023', title: 'Realtor', company: 'Redfin', description: 'Oversaw end-to-end residential real estate transactions, acting as a primary liaison for all stakeholders.' },
+                { year: '2016 - 2022', title: 'Culinary Consultant / Restaurateur', company: 'Self-Employed', description: 'Led full-cycle restaurant development projects and provided specialized consulting on compliance, marketing, and cost control.' },
+                { year: '2014 - 2017', title: 'Principal Consultant - Marketing & Digital Projects', company: 'The Buzz Marketing Company', description: 'Provided marketing strategy, branding, and full-lifecycle web/app development services.' },
+                { year: '2015 - 2016', title: 'District Operations Manager', company: 'Spencer\'s Gifts LLC', description: 'Directed the planning and launch of 12+ seasonal retail stores with budgets up to $2M each.' },
+                { year: '2010 - 2015', title: 'Regional Sales Manager', company: 'Launch Local', description: 'Led regional sales operations for high-profile sports and hospitality clients, managing over $2.5M in annual revenue.' }
+            ];
+
+            const projectData = [
+                { title: 'Seasonal Retail Store Launch', category: 'operations', description: 'Directed planning, initiation, and launch of 12+ seasonal retail stores ($1.5-$2M budgets each), delivering all sites on time, within scope, and under budget.' },
+                { title: 'Restaurant Development Lifecycle', category: 'operations', description: 'Led full-cycle development for new restaurant concepts, from site selection and brand identity to kitchen design and launch execution.' },
+                { title: 'Regulatory & Licensing Consulting', category: 'consulting', description: 'Provided specialized consulting for complex regulatory needs, including securing PA liquor licenses and leading comprehensive RFP processes for high-profile clients.' },
+                { title: 'Web & App Development', category: 'digital', description: 'Led the full development lifecycle of custom websites and cross-platform applications, including DNS configuration, hosting, and CMS integration.' },
+                { title: 'Data-Driven Decision Making', category: 'consulting', description: 'Interpreted and visualized large, complex data sets using Power BI, Looker Studio, and Salesforce to extract actionable insights for executive leadership.' },
+                { title: 'Process Improvement & SOPs', category: 'operations', description: 'Designed and implemented Standard Operating Procedures for safety, sanitation, training, and inventory, reducing operational risk and improving efficiency.' },
+                { title: 'Go-to-Market Strategy', category: 'digital', description: 'Created and led comprehensive go-to-market strategies including social media, local outreach, and partnerships that drove sustained revenue and customer growth.' },
+                { title: 'End-to-End Transaction Management', category: 'operations', description: 'Oversaw complete residential real estate transactions, ensuring compliance and coordinating with multiple stakeholders like lenders, inspectors, and title companies.' },
+                { title: 'Sales Campaign Management', category: 'consulting', description: 'Managed over $2.5M in annual campaign revenue for clients like the Pittsburgh Pirates and Cleveland Cavaliers, consistently exceeding performance metrics.' }
+            ];
+
+            // Dynamic Number Counting Animation
+            const counters = document.querySelectorAll('[data-target]');
+            const speed = 200; 
+
+            const animateCounter = (counter) => {
+                const target = +counter.getAttribute('data-target');
+                const updateCount = () => {
+                    const count = +counter.innerText;
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + inc);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                updateCount();
+            };
+            
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(entry.target);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => {
+                observer.observe(counter);
+            });
+
+
+            // Populate Career Journey
+            const journeyContainer = document.querySelector('.relative.border-l-2');
+            journeyData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'timeline-item mb-8 ml-8 pl-4 relative';
+                div.innerHTML = `
+                    <p class="font-semibold text-stone-500">${item.year}</p>
+                    <h3 class="text-xl font-bold text-stone-800">${item.title}</h3>
+                    <p class="text-md text-teal-600 font-medium">${item.company}</p>
+                    <p class="mt-2 text-stone-700">${item.description}</p>
+                `;
+                journeyContainer.appendChild(div);
+            });
+
+            // Populate and Filter Project Highlights
+            const projectGrid = document.getElementById('project-grid');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+
+            const displayProjects = (filter) => {
+                projectGrid.innerHTML = '';
+                const filteredProjects = filter === 'all' ? projectData : projectData.filter(p => p.category === filter);
+                
+                filteredProjects.forEach(project => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow transform hover:-translate-y-1';
+                    card.innerHTML = `
+                        <h3 class="text-xl font-bold text-stone-800 mb-2">${project.title}</h3>
+                        <p class="text-stone-700">${project.description}</p>
+                        <span class="inline-block bg-stone-200 text-stone-700 text-xs font-semibold mt-4 px-2.5 py-0.5 rounded-full">${project.category.charAt(0).toUpperCase() + project.category.slice(1)}</span>
+                    `;
+                    projectGrid.appendChild(card);
+                });
+            };
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const filter = btn.dataset.filter;
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-teal-500', 'text-white');
+                        b.classList.add('bg-stone-300', 'text-stone-800');
+                    });
+                    btn.classList.add('bg-teal-500', 'text-white');
+                    btn.classList.remove('bg-stone-300', 'text-stone-800');
+                    displayProjects(filter);
+                });
+            });
+
+            displayProjects('all');
+
+            // Skills Chart
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            const skillsChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'Project Management', 
+                        'Stakeholder Management', 
+                        'Agile & Waterfall', 
+                        'Operations Management', 
+                        'Budget & Forecasting', 
+                        'Risk Management',
+                        'Digital & Tech Projects'
+                    ],
+                    datasets: [{
+                        label: 'Proficiency Level',
+                        data: [95, 90, 85, 90, 80, 85, 88],
+                        backgroundColor: 'rgba(20, 184, 166, 0.2)',
+                        borderColor: 'rgba(20, 184, 166, 1)',
+                        pointBackgroundColor: 'rgba(20, 184, 166, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(20, 184, 166, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(41, 37, 36, 0.2)' },
+                            grid: { color: 'rgba(41, 37, 36, 0.2)' },
+                            pointLabels: { 
+                                font: { size: 12, weight: '500' },
+                                color: '#292524' 
+                            },
+                            ticks: {
+                                backdropColor: 'transparent',
+                                stepSize: 20
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed.r !== null) {
+                                        label += context.parsed.r + '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
