@@ -42,8 +42,7 @@
             content: '';
             position: absolute;
             left: -31px;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 10px; /* Adjusted to move to top */
             width: 20px;
             height: 20px;
             border-radius: 50%;
@@ -247,14 +246,14 @@
             const animateCounter = (counter) => {
                 const target = +counter.getAttribute('data-target');
                 const updateCount = () => {
-                    const count = +counter.innerText;
+                    const count = +counter.innerText.replace('+', ''); // Remove the '+' for calculation
                     const inc = target / speed;
 
                     if (count < target) {
                         counter.innerText = Math.ceil(count + inc);
                         setTimeout(updateCount, 1);
                     } else {
-                        counter.innerText = target;
+                        counter.innerText = target + '+';
                     }
                 };
                 updateCount();
@@ -347,7 +346,7 @@
                     ],
                     datasets: [{
                         label: 'Proficiency Level',
-                        data: [95, 90, 85, 90, 80, 85, 88],
+                        data: [95, 90, 85, 90, 85, 85, 88],
                         backgroundColor: 'rgba(20, 184, 166, 0.2)',
                         borderColor: 'rgba(20, 184, 166, 1)',
                         pointBackgroundColor: 'rgba(20, 184, 166, 1)',
