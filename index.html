@@ -130,17 +130,104 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Data for the application
-            const journeyData = [
-[
-                { year: '2020 - Present', title: 'Senior Project Manager', company: 'Triumph Higher Education', description: '• Spearhead continuous process improvement by applying Agile and Waterfall methodologies. '}, 
-                { year: '2022 - 2023', title: 'Realtor', company: 'Redfin', description: 'Oversaw end-to-end residential real estate transactions, acting as a primary liaison for all stakeholders.' },
-                { year: '2016 - 2022', title: 'Culinary Consultant / Restaurateur', company: 'Self-Employed', description: 'Led full-cycle restaurant development projects and provided specialized consulting on compliance, marketing, and cost control.' },
-                { year: '2014 - 2017', title: 'Principal Consultant - Marketing & Digital Projects', company: 'The Buzz Marketing Company', description: 'Provided marketing strategy, branding, and full-lifecycle web/app development services.' },
-                { year: '2015 - 2016', title: 'District Operations Manager', company: 'Spencer\'s Gifts LLC', description: 'Directed the planning and launch of 12+ seasonal retail stores with budgets up to $2M each.' },
-                { year: '2010 - 2015', title: 'Regional Sales Manager', company: 'Launch Local', description: 'Led regional sales operations for high-profile sports and hospitality clients, managing over $2.5M in annual revenue.' }
-            ]
+            const journeyData = 
+                [
+    { 
+        year: '2020 - Present', 
+        title: 'Senior Project Manager', 
+        company: 'Triumph Higher Education', 
+        description: [
+            '• Spearhead continuous process improvement by applying Agile and Waterfall methodologies.',
+            '• Optimize project delivery by integrating insights gained from feedback loops and lessons learned from prior projects.',
+	‘• Deliver high-impact virtual presentations and led live Q&A sessions for large diverse stakeholder groups; engaging over 600 academic and industry participants on a monthly basis.’,
+            ‘• Drive results by leveraging strong business and technical knowledge as well as leadership skills to cultivate effective relationships with team members, business partners and clients.’,
+‘• Interpreted and visualized large, complex data sets to extract actionable insights and inform decision making using tools such as Excel, Looker Studio, Power BI and Salesforce.’,
+‘• Collaborated cross-functionally with academic stakeholders and executive leadership to align project milestones with institutional goals, ensuring successful program outcomes.’,
+        ]
+    },
+    { 
+        year: '2022 - 2023', 
+        title: 'Realtor', 
+        company: 'Redfin', 
+        description: [
+            ‘• Oversaw end-to-end residential real estate transactions, ensuring compliance with fiduciary responsibilities and on-time property closings.’,
+‘• Acted as primary liaison between multiple stakeholders including buyers, sellers, lenders, title companies and inspectors to drive timely decision-making and documentation flow.’,
+‘• Coordinated complex, time-sensitive deliverables across transaction timelines using CRM platforms and digital workflow systems.’,
+‘• Educated first-time buyers on financing options, risk factors and regulatory considerations to support informed decision-making.’,
+        ]
+    },
+    { 
+        year: '2016 - 2022', 
+        title: 'Culinary Consultant / Restaurateur', 
+        company: 'Self-Employed', 
+        description: [
+            '• Led full-cycle restaurant development projects, including site selection, brand identity, menu creation, kitchen design, vendor sourcing and launch execution.’,
+	‘• Operated The Café (Butler, PA) from 2017–2020, a scratch kitchen concept with complete oversight of culinary operations and full profit / loss accountability.’,
+	‘• Designed and implemented Standard Operating Procedures (SOP's) for safety, sanitation, training, inventory systems and cost control, significantly reducing operational risk and improving kitchen efficiency for clients.’,
+	‘• Provided specialized consulting services for complex regulatory and business development needs, including securing PA liquor licenses, leading comprehensive RFP processes and developing marketing strategies for high-profile clients.’,
+        ]
+    },
+    { 
+        year: '2014 - 2017', 
+        title: 'Principal Consultant – Marketing/Digital Projects', 
+        company: 'The Buzz Marketing Company', 
+        description: [
+	‘• Provided marketing strategy, branding consultation and web development services to clients across retail, hospitality and nonprofit sectors.’,
+	‘• Led the full development lifecycle of custom desktop/mobile websites and cross-platform applications; including DNS configuration (MX/CNAME), hosting and CMS integration.’,
+	‘• Conducted UX/UI audits, user acceptance testing (UAT), functionality optimization and managed iOS and Android app store deployment processes including metadata submission, compliance checks and version updates to improve client satisfaction and conversion rates.’,
+	‘• Managed the design and production of digital and print assets using Adobe Illustrator, including menus, flyers, social media content and promotional materials, to support cohesive brand messaging.’,
+        ]
+    },
+    { 
+        year: '2014 - 2016', 
+        title: 'Realtor', 
+        company: 'Northwood Realty Service', 
+        description: [
+            ‘• Conducted market research and property analysis to identify real estate opportunities aligned with client goals, budgets and investment strategies.’,
+	‘• Represented buyers and sellers throughout the full transaction life-cycle, from initial consultation and showings to offer negotiation and closing coordination.’,
+	‘• Cultivated and maintained strong client relationships through strategic communication, needs-based advising, tailored property tours and consistent follow-through across a range of property types including single-family homes, multi-family investments, land development parcels and REO/foreclosure properties.’,
+        ]
+    },
+    { 
+        year: '2015 - 2016', 
+        title: 'District Operations Manager - Retail Store Development', 
+        company: 'Spencer’s Gifts LLC (dba Spirit Halloween Superstores)', 
+        description: [
+	‘• Directed planning, initiation and launch of 12+ seasonal retail store projects (15,000 sq. ft. each; $1.5– $2M budgets), delivering all sites on time, within scope and under budget.’,
+	‘• Led cross-functional teams of 20+ store managers and 100+ hourly employees, facilitating daily coordination with HR, Construction, Merchandising, Facilities and Real Estate to streamline project timelines across multiple locations.’,
+	‘• Managed all regulatory approvals including permitting, inspection and compliance (electrical, fire, occupancy), utilizing stakeholder meetings to align expectations, mitigate risk and deliver continuous project advancement.’,
+        ]
+    },
+    { 
+        year: '2010 - 2015', 
+        title: 'Regional Sales Manager - Sports Marketing', 
+        company: 'Launch Local', 
+        description: [
+	‘• Led regional sales operations and campaign strategy for high-profile clients in the professional sports and hospitality industries, including the Pittsburgh Pirates, Cleveland Cavaliers, Cleveland Guardians, etc.’,
+	‘• Managed $2.5M+ in annual campaign revenue, consistently exceeding performance metrics and earning multiple national #1 rankings for individual and office sales volume.’,
+	‘• Recruited, trained and mentored over 300+ account executives, interns and team leads through structured in-field development programs and hands-on coaching in pitch development, closing, objection handling and relationship re-engagement.’,
+        ]
+    },
+    { 
+        year: '2010 - 2010', 
+        title: 'Regional Manager - QAC', 
+        company: 'United States Bureau of Commerce Department of Census', 
+        description: [
+	‘• Managed operations for multiple Census Questionnaire Assistance Centers across designated counties, certifying federal compliance and optimizing outreach, site selection and response rates through collaboration with local governments and community leaders.’,
+        ]
+    },
+    { 
+        year: '2024 - Present', 
+        title: 'Technical Projects', 
+        company: 'sparksite.io', 
+        description: [
+	‘• Engineered an automated web cloning workflow using Duda, Google Forms and Zapier webhooks to streamline site deployment and project initiation.’,
+	‘• Developed and implemented automated client portals via form submission and Zapier integrations, enhancing self-service capabilities and project communication.’,
+	‘• Leveraged no-code/low-code platforms (Duda, Zapier) to design scalable digital solutions and accelerate project delivery for web-oriented services.’,
+	‘• Managed end-to-end digital workflow for web project automation, from client intake and data capture to site provisioning and notification systems.’,
+	        ]
     }
-];
+]
             const projectData = [
                 { title: 'Seasonal Retail Store Launch', category: 'operations', description: 'Directed planning, initiation, and launch of 12+ seasonal retail stores ($1.5-$2M budgets each), delivering all sites on time, within scope, and under budget.' },
                 { title: 'Restaurant Development Lifecycle', category: 'operations', description: 'Led full-cycle development for new restaurant concepts, from site selection and brand identity to kitchen design and launch execution.' },
